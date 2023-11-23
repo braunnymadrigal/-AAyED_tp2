@@ -1,2 +1,2 @@
 compile:
-	g++ main.cc -g -o algoritmos
+	g++ main.cc grafoLista.cc -g -o algoritmos

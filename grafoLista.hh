@@ -1,21 +1,23 @@
 #pragma once
 
+#include <iostream>
+
+struct SubLista;
+
+struct Vertice {
+  int etiqueta;
+  Vertice *abajo;
+  SubLista *sublista;
+};
+
+struct SubLista {
+  double peso;
+  SubLista *siguiente;
+  Vertice *vertice;
+};
+
 class Grafo {
 public:
-  struct SubLista;
-
-  struct Vertice {
-    int etiqueta;
-    Vertice *abajo;
-    SubLista *sublista;
-  };
-
-  struct SubLista {
-    double peso;
-    SubLista *siguiente;
-    Vertice *vertice;
-  };
-
   // type alias
   using Vert = Vertice *;
   Vertice *VertNulo = nullptr;
@@ -36,9 +38,11 @@ public:
   Vertice *PrimVert();
   Vertice *SigVert(Vertice *v);
   Vertice *PrimVertAdy(Vertice *v);
-  Vertice *SigVertAdy *(Vertice *v1, Vertice *v2);
+  Vertice *SigVertAdy(Vertice *v1, Vertice *v2);
+  int NumVertices();
   // aux
   Vertice *EtiqAVert(int e);
+  void ImprimirListas();
 
 private:
   void Iniciar();

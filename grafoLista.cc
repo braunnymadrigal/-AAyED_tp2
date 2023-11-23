@@ -94,19 +94,44 @@ Vertice *Grafo::SigVertAdy(Vertice *v1, Vertice *v2) {
   return vertADevolver;
 }
 
+int Grafo::NumVertices() {
+  int numero = 0;
+  Vertice *iterador = primero;
+  while (iterador != nullptr) {
+    ++numero;
+    iterador = iterador->abajo;
+  }
+  return numero;
+}
+
 // aux
 Vertice *Grafo::EtiqAVert(int e) {
-  Vertice *vertADevoler = nullptr;
+  Vertice *vertADevolver = nullptr;
   Vertice *iterador = primero;
   while (iterador != nullptr) {
     if (iterador->etiqueta == e) {
       vertADevolver = iterador;
       iterador = nullptr;
     } else {
-      iterador = iterador->siguiente;
+      iterador = iterador->abajo;
     }
   }
   return vertADevolver;
+}
+
+void Grafo::ImprimirListas() {
+  Vertice *iteradorVert = primero;
+  while (iteradorVert != nullptr) {
+    std::cout << iteradorVert->etiqueta << ":";
+    SubLista *iteradorSub = iteradorVert->sublista;
+    while (iteradorSub != nullptr) {
+      std::cout << "\t" << iteradorSub->vertice->etiqueta << ","
+                << iteradorSub->peso;
+      iteradorSub = iteradorSub->siguiente;
+    }
+    std::cout << std::endl;
+    iteradorVert = iteradorVert->abajo;
+  }
 }
 
 void Grafo::Iniciar() { primero = nullptr; }
