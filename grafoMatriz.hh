@@ -45,4 +45,5 @@ class Grafo{
 	
 	public:
 		using Vert = int;
+		int VertNulo = -1;
 };
