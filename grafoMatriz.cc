@@ -132,7 +132,7 @@ void Grafo::Imprimir() {
     std::cout << std::endl;
     for (int i = 0; i <= this->ultLleno; ++i) {
         for (int j = 0; j <= this->ultLleno; ++j) {
-            std::cout << aristas[j][i] << " ";
+            std::cout << aristas[i][j] << " ";
         }
         std::cout << std::endl;
     }
