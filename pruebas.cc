@@ -122,4 +122,3 @@ void Pruebas::TestKruskal(Grafo *G) {}
 
 void Pruebas::TestHamiltonBEP(Grafo *G) {}
 
-void TestHamiltonBEP(Grafo *G) {}
