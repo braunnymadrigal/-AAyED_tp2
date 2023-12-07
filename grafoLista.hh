@@ -42,7 +42,7 @@ public:
     int NumVertices();
     // aux
     Vertice *EtiqAVert(int e);
-    void ImprimirListas();
+    void Imprimir();
 
 private:
     void Iniciar();

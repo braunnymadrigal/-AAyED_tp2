@@ -11,17 +11,10 @@ bool Grafo::Vacio() { return primero == nullptr; }
 Vertice *Grafo::AgregarVert(int e) {
     Vertice *v = new Vertice;
     v->etiqueta = e;
-    v->abajo = nullptr;
+    v->abajo = primero;
     v->sublista = nullptr;
-    if (primero == nullptr) {
-        primero = v;
-    } else {
-        Vertice *iterador = primero;
-        while (iterador->abajo != nullptr) {
-            iterador = iterador->abajo;
-        }
-        iterador->abajo = v;
-    }
+    primero = v;
+
     return v;
 }
 
@@ -122,7 +115,7 @@ Vertice *Grafo::EtiqAVert(int e) {
     return iterador;
 }
 
-void Grafo::ImprimirListas() {
+void Grafo::Imprimir() {
     Vertice *iteradorVert = primero;
     while (iteradorVert != nullptr) {
         std::cout << iteradorVert->etiqueta << ":";
@@ -157,17 +150,9 @@ void Grafo::Destruir() {
 void Grafo::AgregarAristPriv(Vertice *v1, Vertice *v2, double p) {
     SubLista *subL = new SubLista;
     subL->peso = p;
-    subL->siguiente = nullptr;
+    subL->siguiente = v1->sublista;
     subL->vertice = v2;
-    if (v1->sublista == nullptr) {
-        v1->sublista = subL;
-    } else {
-        SubLista *adyActual = v1->sublista;
-        while (adyActual->siguiente != nullptr) {
-            adyActual = adyActual->siguiente;
-        }
-        adyActual->siguiente = subL;
-    }
+    v1->sublista = subL;
 }
 
 void Grafo::BorrarAristPriv(Vertice *v1, Vertice *v2) {
