@@ -18,7 +18,7 @@ Estudiantes: Keylor Palacios C25770 / Braunny Madrigal C24436
 3. Si se decide usar el objeto pruebas. El programa va a consistir de una simple salida en consola que le detalla el tiempo de ejecución, de la estructura de datos escogida anteriormente y de un tamaño en particular, en 7 algoritmos y 3 tipos de grafo. En el archivo pruebas.cc, usted puede escoger de que tamaño quiere su grafo, basta con cambiar el valor de la variable "int tamano" por el tamaño que desee.
 
 ## ¿Qué funcionalidad implementa?
-1. Se implementan el modelo Grafo NO dirigo, con pesos, sin aristas paralelas y sin lazos por las estructuras de datos “Matriz de Adyacencia” y “Lista de Adyacencia”.
+1. Se implementa el modelo Grafo NO dirigido, con pesos, sin aristas paralelas y sin lazos por las estructuras de datos “Matriz de Adyacencia” y “Lista de Adyacencia”.
 2. Se implementan todos los algoritmos que se detallan en el archivo pdf de documentación. Tales que los algoritmos funcionan independientemente de la estructura de datos a utilizar.
 3. Se implementa una interfaz que le permite manipular el modelo grafo a su antojo mediante el uso de menús simples. 
 4. Se implementa una clase pruebas que es capaz de construir grafos de forma automática y testearlos en distintos algoritmos. Es capaz de imprimir los tiempos que los grafos duran en ciertas pruebas específicas.
