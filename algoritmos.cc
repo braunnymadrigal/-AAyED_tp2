@@ -41,7 +41,7 @@ bool Algoritmos::EsConexoAnchoPrim(Grafo *G) {
             while (va != G->VertNulo) {
                 if (DVV.find(va) == DVV.end()) {
                     cola.push(va);
-                    DVV[va] = true;  
+                    DVV[va] = true;
                 }
                 va = G->SigVertAdy(v, va);
             }
@@ -49,7 +49,6 @@ bool Algoritmos::EsConexoAnchoPrim(Grafo *G) {
     }
     return numVisitados == G->NumVertices();
 }
-
 
 // privados
 

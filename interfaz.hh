@@ -1,14 +1,14 @@
 #pragma once
 
-#include "algGrafo.hh"
+#include "algoritmos.hh"
 
 class Interfaz {
 public:
     void pruebas();
     void probarOps(Grafo *&grafo);
     void probarAlg(Grafo *&grafo);
-    void mostrarOperadoresGrafo();
-    void mostrarAlgoritmosGrafo();
+    void mostrarOperadores();
+    void mostrarAlgoritmos();
     void bienvenida();
     int getOpcion();
     void mostrarManual();

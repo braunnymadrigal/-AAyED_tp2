@@ -16,10 +16,10 @@ void Interfaz::pruebas() {
             '\n'); // limpiar buffer
         switch (opcion) {
         case 1:
-            this->probarOps(arbol);
+            this->probarOps(grafo);
             break;
         case 2:
-            this->probarAlg(arbol);
+            this->probarAlg(grafo);
             break;
         case 3:
             this->mostrarManual();
@@ -31,180 +31,217 @@ void Interfaz::pruebas() {
 
 void Interfaz::probarOps(Grafo *&grafo) {
     int opcion = -1;
-    char etiqueta1 = ' ';
-    char etiqueta2 = ' ';
-    int enteroAux = 0;
+    int etiqueta1;
+    int etiqueta2;
+    double realAux;
     while (opcion != 0) {
-        this->mostrarOperadoresArbol();
+        this->mostrarOperadores();
         opcion = this->getOpcion();
-        Arbol::Node nodoActual;
+        Grafo::Vert vertActual;
         switch (opcion) {
         case 1:
-            if (arbol != nullptr) {
-                delete arbol;
-                arbol = nullptr;
+            if (grafo != nullptr) {
+                delete grafo;
+                grafo = nullptr;
             }
-            arbol = new Arbol;
-            std::cout << "Arbol creado... :)" << std::endl
+            grafo = new Grafo;
+            std::cout << "Grafo creado... :)" << std::endl
                       << "Ya podemos empezar" << std::endl;
 
             break;
 
         case 2:
-            delete arbol;
-            arbol = nullptr;
+            delete grafo;
+            grafo = nullptr;
             std::cout
-                << "Arbol eliminado... :(" << std::endl
-                << "Recuerda que no puedes trabajar con un arbol destruido, te "
+                << "Grafo eliminado... :(" << std::endl
+                << "Recuerda que no puedes trabajar con un grafo destruido, te "
                    "recomendamos que crees uno :)"
                 << std::endl;
 
             break;
 
         case 3:
-            arbol->Vaciar();
-            std::cout << "El arbol se vacio..." << std::endl;
+            grafo->Vaciar();
+            std::cout << "El grafo se vacio..." << std::endl;
 
             break;
 
         case 4:
-            if (arbol->Vacio()) {
-                std::cout << "El arbol SÍ está vacio." << std::endl;
+            if (grafo->Vacio()) {
+                std::cout << "El grafo SÍ está vacio." << std::endl;
             } else {
-                std::cout << "El arbol NO está vacio." << std::endl;
+                std::cout << "El grafo NO está vacio." << std::endl;
             }
 
             break;
 
-        case 5:
-            std::cout << "*Recuerda que es un arbol de tipo de elemento char*"
+        case 5: // AgregarVert
+            std::cout << "*Recuerda que es un grafo de tipo de elemento int*"
                       << std::endl
-                      << "¿Cúal quieres que sea la raiz?: ";
+                      << "Escribe la etiqueta: ";
             std::cin >> etiqueta1;
-            arbol->PonerRaiz(etiqueta1);
-            std::cout << "La nueva raiz es:" << etiqueta1;
+            grafo->AgregarVert(etiqueta1);
+            std::cout << "Vertice agregado";
 
             break;
 
-        case 6:
-            std::cout << "*Recuerda que es un arbol de tipo de elemento char y "
-                         "que la "
-                         "posición del nodo va desde el 1 hasta la cantidad de "
-                         "hijos + 1*"
+        case 6: // BorrarVert
+            std::cout << "*Recuerda que el vertice a borrar debe ser un "
+                         "vertice aislado*"
                       << std::endl
-                      << "¿Cúal quieres que sea el padre?: ";
+                      << "¿Que vertice quieres borrar?: ";
             std::cin >> etiqueta1;
-
-            std::cout << "\n¿Cúal quieres que sea el nuevo nodo?: ";
-            std::cin >> etiqueta2;
-
-            std::cout << "\n¿En que posición quieres que este el nodo?: ";
-            std::cin >> enteroAux;
-            nodoActual = arbol->getNodo(etiqueta1);
-            arbol->AgregarHijo(nodoActual, etiqueta2, enteroAux);
-            std::cout << "Se agrego el nuevo nodo ";
+            grafo->BorrarVert(grafo->EtiqAVert(etiqueta1));
+            std::cout << "Se borro el vertice";
 
             break;
 
-        case 7:
-            std::cout
-                << "*Recuerda que el nodo debe ser una etiqueta*\n¿Cúal nodo "
-                   "quieres borrar?: ";
-            std::cin >> etiqueta1;
-            nodoActual = arbol->getNodo(etiqueta1);
-            arbol->BorrarHoja(nodoActual);
-            std::cout << "Se borro el nodo." << etiqueta1;
-
-            break;
-
-        case 8:
-            std::cout
-                << "*Recuerda que el nodo debe estar en el arbol*\n¿Cúal nodo "
-                   "quieres modificar?: ";
+        case 7: // ModifEtiq
+            std::cout << "*Recuerda que la etiqueta es de tipo de elemento "
+                         "int*\n¿Cúal vertice "
+                         "quieres modificar?: ";
             std::cin >> etiqueta1;
 
             std::cout << "\n¿Cúal quieres que sea la nueva etiqueta?: ";
             std::cin >> etiqueta2;
-            nodoActual = arbol->getNodo(etiqueta1);
-            arbol->ModificarEtiqueta(nodoActual, etiqueta2);
-            std::cout << "Se modifico el nodo.";
+            vertActual = grafo->EtiqAVert(etiqueta1);
+            grafo->ModifEtiq(vertActual, etiqueta2);
+            std::cout << "Se modifico el vertice.";
 
             break;
 
-        case 9:
-            if (arbol->Vacio()) {
-                std::cout << "El árbol no tiene raíz, puedes agregarle una :)";
+        case 8: // Etiq
+            std::cout << "*Recuerda que el vertice debe estar en el "
+                         "grafo*\n¿De cual vertice "
+                      << "quieres saber la etiqueta?: ";
+            std::cin >> etiqueta1;
+            std::cout << "Etiqueta es: "
+                      << grafo->Etiq(grafo->EtiqAVert(etiqueta1));
+
+            break;
+
+        case 9: // AgregarArist
+            std::cout << "*Recuerda que ambos vertices deben estar en el "
+                         "grafo*\nElige el primer vertice: ";
+            std::cin >> etiqueta1;
+
+            std::cout << "Elige el segundo vertice: ";
+            std::cin >> etiqueta2;
+            std::cout << "Elige el peso de la arista: ";
+            std::cin >> realAux;
+            grafo->AgregarArist(
+                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2),
+                realAux);
+            std::cout << "Arista agregada.";
+
+            break;
+
+        case 10: // BorrarArist
+            std::cout
+                << "*Recuerda que la arista debe existir*\nElige el primer "
+                   "vertice: ";
+            std::cin >> etiqueta1;
+            std::cout << "Elige el segundo vertice: ";
+            std::cin >> etiqueta2;
+            grafo->BorrarArist(
+                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2));
+            std::cout << "Arista borrada";
+
+            break;
+
+        case 11: // ModifPeso
+            std::cout
+                << "*Recuerda que la arista debe existir*\nElige el primer "
+                   "vertice: ";
+            std::cin >> etiqueta1;
+            std::cout << "Elige el segundo vertice: ";
+            std::cin >> etiqueta2;
+            std::cout << "Elige el nuevo peso de la arista: ";
+            std::cin >> realAux;
+            grafo->ModifPeso(
+                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2),
+                realAux);
+            std::cout << "Peso de arista modificado";
+
+            break;
+
+        case 12: // Peso
+            std::cout
+                << "*Recuerda que la arista debe existir*\nElige el primer "
+                   "vertice: ";
+            std::cin >> etiqueta1;
+            std::cout << "Elige el segundo vertice: ";
+            std::cin >> etiqueta2;
+            std::cout << "Peso de la arista: "
+                      << grafo->Peso(
+                             grafo->EtiqAVert(etiqueta1),
+                             grafo->EtiqAVert(etiqueta2));
+            ;
+
+            break;
+
+        case 13: // PrimVert
+            std::cout << "El primer vertice del grafo es: ";
+            vertActual = grafo->PrimVert();
+            if (vertActual == grafo->VertNulo) {
+                std::cout << "Vertice Nulo";
             } else {
-                std::cout << "La raíz del arbol es: "
-                          << arbol->Etiqueta(arbol->Raiz());
+                std::cout << grafo->Etiq(vertActual);
             }
 
             break;
 
-        case 10:
-            std::cout
-                << "*Recuerda que el nodo debe estar en el arbol*\n¿De cúal "
-                   "nodo quieres saber el padre?: ";
+        case 14: // SigVert
+            std::cout << "¿De cúal vertice quieres saber su siguiente?: ";
             std::cin >> etiqueta1;
 
-            std::cout << "El padre del nodo " << etiqueta1 << " es: ";
-            if (arbol->Padre(arbol->getNodo(etiqueta1)) == arbol->NodoNulo) {
-                std::cout << "nodo nulo";
+            vertActual = grafo->SigVert(grafo->EtiqAVert(etiqueta1));
+            if (vertActual == grafo->VertNulo) {
+                std::cout << "Vertice Nulo";
             } else {
-                std::cout << arbol->Etiqueta(
-                    arbol->Padre(arbol->getNodo(etiqueta1)));
+                std::cout << grafo->Etiq(vertActual);
             }
 
             break;
 
-        case 11:
+        case 15: // PrimVertAdy
             std::cout
-                << "*Recuerda que el nodo debe estar en el arbol*\n¿De cúal "
-                   "nodo quieres saber el hijo más izquierdo?: ";
+                << "¿De cúal vertice quieres saber su primer adyacente?: ";
             std::cin >> etiqueta1;
 
-            std::cout << "El hijo más izquierdo del nodo " << etiqueta1
-                      << " es: ";
-            if (arbol->HijoMasIzq(arbol->getNodo(etiqueta1)) ==
-                arbol->NodoNulo) {
-                std::cout << "nodo nulo";
+            vertActual = grafo->PrimVertAdy(grafo->EtiqAVert(etiqueta1));
+            if (vertActual == grafo->VertNulo) {
+                std::cout << "Vertice Nulo";
             } else {
-                std::cout << arbol->Etiqueta(
-                    arbol->HijoMasIzq(arbol->getNodo(etiqueta1)));
+                std::cout << grafo->Etiq(vertActual);
             }
 
             break;
 
-        case 12:
-            std::cout
-                << "*Recuerda que el nodo debe estar en el arbol*\n¿De cúal "
-                   "nodo quieres saber el hermano derecho?: ";
+        case 16: // SigVertAdy
+            std::cout << "Elige el vertice del cual es adyacente: ";
             std::cin >> etiqueta1;
-            std::cout << "El hermano derecho del nodo " << etiqueta1 << " es: ";
-            if (arbol->HermanoDer(arbol->getNodo(etiqueta1)) ==
-                arbol->NodoNulo) {
-                std::cout << "nodo nulo";
+            std::cout << "Elige el vertice del cual es siguiente: ";
+            std::cin >> etiqueta2;
+
+            vertActual = grafo->SigVertAdy(
+                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2));
+            if (vertActual == grafo->VertNulo) {
+                std::cout << "Vertice Nulo";
             } else {
-                std::cout << arbol->Etiqueta(
-                    arbol->HermanoDer(arbol->getNodo(etiqueta1)));
+                std::cout << grafo->Etiq(vertActual);
             }
 
             break;
 
-        case 13:
-            enteroAux = arbol->NumNodos();
-            std::cout << "El número de nodos del árbol es: " << enteroAux;
+        case 17: // NumVertices
+            std::cout << "Numero de vertices: " << grafo->NumVertices();
 
             break;
 
-        case 14:
-            std::cout
-                << "*Recuerda que el nodo debe estar en el arbol*\n¿De cúal "
-                   "nodo quieres saber la cantidad de hijos?: ";
-            std::cin >> etiqueta1;
-            enteroAux = arbol->NumHijos(arbol->getNodo(etiqueta1));
-            std::cout << "El número de nodos hijos del nodo " << etiqueta1
-                      << ": " << enteroAux;
+        case 18: // Imprimir
+            grafo->Imprimir();
 
             break;
         }
@@ -214,47 +251,49 @@ void Interfaz::probarOps(Grafo *&grafo) {
     }
 }
 
-void Interfaz::mostrarOperadoresArbol() {
+void Interfaz::mostrarOperadores() {
     std::cout << "OPERADORES BASICOS DEL ARBOL:\n"
-              << "\t0. Salir.\n"
-              << "\t1. Crear.\n"
-              << "\t2. Destruir.\n"
-              << "\t3. Vaciar.\n"
-              << "\t4. Vacio.\n"
-              << "\t5. Poner Raiz.\n"
-              << "\t6. Agregar Hijo.\n"
-              << "\t7. Borrar Hoja.\n"
-              << "\t8. Modificar Etiqueta.\n"
-              << "\t9. Raiz.\n"
-              << "\t10. Padre.\n"
-              << "\t11. Hijo mas Izquierdo.\n"
-              << "\t12. Hermano Derecho.\n"
-              << "\t13. Numero de Nodos.\n"
-              << "\t14. Numero de Hijos.\n";
+              << "\t00. Salir.\n"
+              << "\t01. Crear.\n"
+              << "\t02. Destruir.\n"
+              << "\t03. Vaciar.\n"
+              << "\t04. Vacio.\n"
+              << "\t05. Agregar Vertice.\n"
+              << "\t06. Borrar Vertice.\n"
+              << "\t07. Modificar Etiqueta.\n"
+              << "\t08. Etiqueta.\n"
+              << "\t09. Agregar Arista.\n"
+              << "\t10. Borrar Arista.\n"
+              << "\t11. Modificar Peso.\n"
+              << "\t12. Peso.\n"
+              << "\t13. Primer Vertice.\n"
+              << "\t14. Siguiente Vertice.\n"
+              << "\t15. Primer Vertice Adyacente.\n"
+              << "\t16. Siguiente Vertice Adyacentes.\n"
+              << "\t17. Numero de Vertices.\n"
+              << "\t18. EXTRA (IMPRIMIR).\n";
 }
 
-void Interfaz::mostrarAlgoritmosArbol() {
+void Interfaz::mostrarAlgoritmos() {
     std::cout << "ALGORITMOS PARA EL ARBOL:\n"
               << "\t0. Salir.\n"
-              << "\t1. Hermano Izquierdo.\n"
-              << "\t2. Etiquetas Repetidas.\n"
-              << "\t3. Altura Nodo.\n"
-              << "\t4. Profundidad Nodo.\n"
-              << "\t5. Niveles PreOrden.\n"
-              << "\t6. Niveles PorNiveles.\n"
-              << "\t7. Listar Iesimo Nivel.\n"
-              << "\t8. Listar PreOrden.\n"
-              << "\t9. Listar PorNiveles.\n"
-              << "\t10. Buscar Etiqueta.\n"
-              << "\t11. Borrar SubArbol.\n"
-              << "\t12. Listar Hijos de Nodo.\n";
+              << "\t1. NumAristas.\n"
+              << "\t2. EsConexo(ProfPrim).\n"
+              << "\t3. Es Conexo(AnchoPrim).\n"
+              << "\t4. Dijkstra.\n"
+              << "\t5. Floyd.\n"
+              << "\t6. Prim.\n"
+              << "\t7. Kruskal.\n"
+              << "\t8. HamiltonBEP.\n";
 }
 
 void Interfaz::bienvenida() {
     system("clear");
     std::cout
-        << "BIENVENIDO.\nEste es programa que permite operar la estructura de "
-           "datos Arbol n-ario tal que sí importa el orden entre los hijos "
+        << "BIENVENIDO.\nEste es el programa que permite operar la estructura "
+           "de "
+           "datos Grafo NO Dirigido, con pesos, sin aristas paralelas y sin "
+           "lazos "
            "con: "
            "\n\tOperadores basicos de dicha estructura. \n\tAlgoritmos que "
            "operan dicha estructura. \n\nPresione enter para continuar.";
@@ -280,247 +319,140 @@ int Interfaz::getOpcion() {
 void Interfaz::mostrarManual() {
     system("clear");
     std::string reglas =
-        "MANUAL DE OPERADORES:\nCOLA\nIniciar(Cola C)\n\tEfecto: Inicializa la "
-        "cola C como una cola vacía.\n\tRequiere: Una cola C no inicializada o "
-        "destruida.\n\tModifica: La cola C.\nDestruir (Cola C)\n\tEfecto: "
-        "Destruye la cola C dejándola inutilizable.\n\tRequiere: Una cola C "
-        "inicializada.\n\tModifica: La cola C.\nVaciar (Cola C)\n\tEfecto: "
-        "Limpia la cola C, dejándola con 0 elementos.\n\tRequiere: Una cola C "
-        "inicializada.\n\tModifica: La cola C.\nVacia (Cola C) -> "
-        "booleano\n\tEfecto: Comprueba si la cola esta vacía. Devuelve "
-        "verdadero "
-        "si lo está, falso en caso contrario.\n\tRequiere: Una cola C "
-        "inicializada.\n\tModifica: N/A.\nEncolar (Elemento e, Cola "
-        "C)\n\tEfecto: Agrega el elemento e al final de la cola "
-        "C.\n\tRequiere: "
-        "Una cola C inicializada y un elemento e válido.\n\tModifica: La cola "
-        "C.\nDesencolar (Cola) -> elemento\n\tEfecto: Borra y devuelve el "
-        "elemento que está al frente de la cola.\n\tRequiere: Una cola C "
-        "inicializada y no vacía.\n\tModifica: La cola C.\nFrente (Cola c) -> "
-        "elemento\n\tEfecto: Devuelve el elemento que está al frente de la "
-        "cola.\n\tRequiere: Una cola C inicializada y no vacía.\n\tModifica: "
-        "N/A.\n\nARBOL\nIniciar (Arbol A)\n\tEfecto: Inicializa el árbol como "
-        "un "
-        "árbol vacío.\n\tRequiere: Un árbol A no inicializado o "
-        "destruido.\n\tModifica: El árbol A.\nDestruir (Arbol A)\n\tEfecto: "
-        "Destruye el árbol A dejándolo inutilizable.\n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: EL árbol A.\nVaciar (Arbol A)\n\tEfecto: "
-        "Limpia el árbol A, dejándolo con 0 nodos.\n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: El árbol A.\nVacio (Arbol A) -> "
-        "booleano\n\tEfecto: Comprueba si el árbol esta vacío. Devuelve "
-        "verdadero si lo está, falso en caso contrario.\n\tRequiere: Un árbol "
-        "A "
-        "inicializado.\n\tModifica: N/A.\n PonerRaíz (Etiqueta e, Arbol "
-        "A)\n\tEfecto: Pone en el árbol A, un nodo raíz que contiene la "
-        "etiqueta "
-        "e, de esta forma le quita el estatus de vacío al árbol.\n\tRequiere: "
-        "Un "
-        "árbol A inicializado y vacío y una etiqueta.\n\tModifica: El árbol "
-        "A.\nAgregarHijo (Nodo n, Etiqueta e, int i, Arbol A) -> "
-        "nodo\n\tEfecto: "
-        "Pone en el árbol A, un nodo que contiene la etiqueta e como hijo del "
-        "nodo n en la posición i dentro de sus hijos y devuelve el nuevo nodo "
-        "agregado.\n\tRequiere: Un árbol A inicializado, no vacío, un nodo n "
-        "distinto a nodoNulo, una etiqueta e y una posición i menor o igual "
-        "que "
-        "el número de hijos del nodo n más 1, pero con i mayor que "
-        "0.\n\tModifica: El árbol A.\nBorrarHoja (Nodo n, Arbol A)\n\tEfecto: "
-        "Elimina el nodo n.\n\tRequiere: Un árbol A inicializado, no vacío y "
-        "un "
-        "nodo n sea un nodo hoja.\n\tModifica: El árbol A.\nModificarEtiqueta "
-        "(Nodo n, Etiqueta e, Árbol A)\n\tEfecto: Modifica la etiqueta que "
-        "contiene el nodo n, por la etiqueta e.\n\tRequiere: Un árbol A "
-        "inicializado, no vacío, un nodo n distinto a nodoNulo y una etiqueta "
-        "e.\n\tModifica: El árbol A, específicamente el nodo n.\nRaiz (Arbol "
-        "A) "
-        "-> nodo\n\tEfecto: Devuelve el nodo raíz del árbol y si está vacío "
-        "devuelve nodoNulo.\n\tRequiere: Un árbol A inicializado.\n\tModifica: "
-        "N/A.\nPadre (Nodo n, Árbol A) -> nodo\n\tEfecto: Devuelve el nodo "
-        "padre "
-        "del nodo n y si no tiene padre devuelve nodoNulo.\n\tRequiere: Un "
-        "árbol "
-        "A inicializado, no vacío y un nodo distinto a nodoNulo.\n\tModifica: "
-        "N/A.\nHijoMasIzq (Nodo n, Árbol A) -> nodo\n\tEfecto: Devuelve el "
-        "hijo "
-        "más izquierdo del nodo n y si no tiene hijos devuelve "
-        "nodoNulo.\n\tRequiere: Un árbol A inicializado, no vacío y un nodo "
-        "distinto a nodo nulo.\n\tModifica: N/A.\nHermanoDer (Nodo n, Árbol A) "
-        "-> "
-        "nodo\n\tEfecto: Devuelve el hermano derecho del nodo n y si no tiene "
-        "hermano derecho devuelve nodoNulo.\n\tRequiere: Un árbol A "
-        "inicializado, no vacío y un nodo distinto a nodo nulo.\n\tModifica: "
-        "N/A.\nEtiqueta (Nodo n, Árbol A) -> etiqueta\n\tEfecto: Devuelve la "
-        "etiqueta en relación 1 a 1 con el nodo n.\n\tRequiere: Un árbol A "
-        "inicializado, no vacío y un nodo distinto a nodoNulo.\n\tModifica: "
-        "N/A.\nNumNodos(Árbol A) -> int\n\tEfecto: Devuelve como un entero la "
-        "cantidad de nodos que contiene el árbol A.\n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: N/A.\nNumHijos (Nodo n, Árbol A) -> "
-        "int\n\tEfecto: Devuelve como un entero la cantidad de nodos hijos que "
-        "tiene el nodo n.\n\tRequiere: Un árbol A inicializado, no vacío y un "
-        "nodo distinto a nodo nulo.\n\tModifica: N/A.\n\n\n\nMANUAL DE "
-        "ALGORITMOS:\n\nHermanoIzq(Arbol A, Nodo n) -> Nodo\n\tEfecto: "
-        "Devuelve "
-        "el "
-        "hermano izquierdo del nodo n. Si no tiene hermano devuelve nodo nulo. "
-        "\n\tRequiere: Un árbol A inicializado no vacío y un nodo n válido en "
-        "A.\n\tModifica: N/A\nEtiqRepetidas(Arbol A) -> bool\n\tEfecto: "
-        "Averigua "
-        "si el árbol tiene etiquetas repetidas. Devuelve verdadero si las "
-        "tiene, "
-        "falso en caso contrario. \n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: N/A \nAlturaNodoPreOrden(Arbol A, Nodo n) "
-        "-> "
-        "int \n\tEfecto: Devuelve la altura del nodo n en el arbol A haciendo "
-        "un "
-        "recorrido en preorden. Dicha altura es devuelta como un entero. "
-        "\n\tRequiere: Un árbol A inicializado no vacío y un nodo n válido en "
-        "A. "
-        "\n\tModifica: N/A \nProfundidadNodo(Arbol A, Nodo n) -> int "
-        "\n\tEfecto: "
-        "Devuelve la profundidad del nodo n en el arbol A. Dicha profundidad "
-        "es "
-        "devuelta como un entero. \n\tRequiere: Un árbol A inicializado no "
-        "vacío "
-        "y "
-        "un nodo n válido en A. \n\tModifica: N/A \nCantNivelesPreOrden(Arbol "
-        "A) "
-        "-> int \n\tEfecto: Devuelve la cantidad de niveles del árbol haciendo "
-        "un "
-        "recorrido en preorden. Dicha cantidad es devuelta como un entero. "
-        "\n\tRequiere: Un árbol A inicializado.\n\tModifica: "
-        "N/A\nCantNivelesPorNiveles(Arbol A) -> int\n\tEfecto: Devuelve la "
-        "cantidad de niveles del árbol haciendo un recorrido por niveles. "
-        "Dicha "
-        "cantidad es devuelta como un entero.\n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: N/A \nListarIesimoNivel(Arbol A, int "
-        "i)\n\tEfecto: Lista o imprime las "
-        "etiquetas del árbol A en el nivel i.\n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: N/A \nListarPreOrden(Arbol A)\n\tEfecto: "
-        "Lista o "
-        "imprime las etiquetas del árbol A haciendo un recorrido en "
-        "preorden.\n\tRequiere: Un árbol A inicializado.\n\tModifica: N/A "
-        "\nListarPorNiveles(Arbol A)\n\tEfecto: Lista o imprime las etiquetas "
-        "del "
-        "árbol A haciendo un recorrido por niveles.\n\tRequiere: Un árbol A "
-        "inicializado.\n\tModifica: N/A \nBuscarEtiq(Arbol A, Etiqueta e) -> "
-        "Nodo\n\tEfecto: Busca la etiqueta e en el arbol A y devuelve el nodo "
-        "asociado con la misma. Si no hay nodo asociado con dicha etiqueta "
-        "devuelve nodo nulo.\n\tRequiere: Un árbol inicializado.\n\tModifica: "
-        "N/A "
-        "\nBorrarSubArbol(Arbol A, Nodo n)\n\tEfecto: Borra el subárbol que se "
-        "genera a partir del nodo n, toma dicho nodo n como raíz del subárbol "
-        "a "
-        "borrar.\n\tRequiere: Un árbol inicializado no vacío y un nodo n "
-        "válido "
-        "en "
-        "A.\n\tModifica: El árbol A.\nListarHijos(Arbol A, Nodo n)\n\tEfecto: "
-        "Lista "
-        "o imprime todos los hijos del nodo n en el árbol A.\n\tRequiere: Un "
-        "árbol "
-        "inicializado no vacío y un nodo n válido en A. \n\tModifica: N/A \n";
+        "\tOPERADORES\n\nIniciar(Grafo G)\n\tEfecto: Inicializa el grafo  G "
+        "como grafo no dirigido.\n\tRequiere: Un grafo G no inicializado o "
+        "destruido.\n\tModifica: El grafo G.\nDestruir(Grafo G)\n\tEfecto: "
+        "Destruye el grafo G.\n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: El grafo G.\nVaciar(Grafo G)\n\tEfecto: "
+        "Vacía el grafo G.\n\tRequiere: Un grafo G inicializado no "
+        "vacío.\n\tModifica: El grafo G.\nVacio(Grafo G) -> bool\n\tEfecto: "
+        "Pregunta si el grafo G está vacío. Devuelve un bool en verdadero si "
+        "lo está, falso en caso contrario. \n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: N/A\nAgregarVert(Grafo G, etiqueta e) -> "
+        "vértice\n\tEfecto: Agrega un vértice como vértice aislado en el grafo "
+        "G. Devuelve el vértice que se acaba de agregar.\n\tRequiere: Un grafo "
+        "G inicializado y un parámetro e tipo etiqueta.\n\tModifica: El grafo "
+        "G.\nBorrarVert(Grafo G, vértice v)\n\tEfecto: Borra el vértice v "
+        "aislado del grafo G.\n\tRequiere: Un grafo G inicializado no vacío y "
+        "un vértice v válido en G y v aislado.\n\tModifica: El grafo "
+        "G.\nModifEtiq(Grafo G, vértice v, etiqueta e)\n\tEfecto: Modifica la "
+        "etiqueta del vértice v, la actualiza a ser etiqueta e.\n\tRequiere: "
+        "Un grafo G inicializado no vacío, un vértice v válido en G y un "
+        "parámetro e tipo etiqueta.\n\tModifica: El grafo G.\nEtiq(Grafo G, "
+        "vértice v) -> etiqueta\n\tEfecto: Devuelve la etiqueta asociada al "
+        "vértice v.\n\tRequiere: Un grafo G inicializado no vacío y un vértice "
+        "v válido en G.\n\tModifica: N/A\nAgregarArist(Grafo G, vértice v1, "
+        "vértice v2, peso p) \n\tEfecto: Agrega arista de v1 a v2 con peso "
+        "p.\n\tRequiere: Un grafo G inicializado no vacio, vértices v1 y v2 "
+        "válidos en G, v1 distinto a v2, que no exista arista previa de v1 a "
+        "v2 y un parámetro p tipo peso. \n\tModifica: El grafo "
+        "G.\nBorrarArist(Grafo G, vértice v1, vértice v2)\n\tEfecto: Borra la "
+        "arista que va de v1 a v2.\n\tRequiere: Un grafo G inicializado no "
+        "vacío, vértices v1 y v2 válidos en G y que arista de v1 a v2 "
+        "exista.\n\tModifica: El grafo G.\nModifPeso(Grafo G, vértice v1, "
+        "vértice v2, peso p)\n\tEfecto: Modifica el peso de la arista que va "
+        "de v1 a v2. \n\tRequiere: Un grafo G inicializado no vacío, vértices "
+        "v1 y v2 válidos en G, que exista arista de v1 a v2 y un parámetro p "
+        "de tipo peso. \n\tModifica: El grafo G.\nPeso(Grafo G, vértice v1, "
+        "vértice v2) -> peso\n\tEfecto: Devuelve el peso de la arista que va "
+        "de v1 a v2.\n\tRequiere: Un grafo G inicializado no vacío, vértices "
+        "v1 y v2 válidos en G y que exista arista de v1 a v2. \n\tModifica: "
+        "N/A\nPrimVert(Grafo G) -> vertice\n\tEfecto: Devuelve el primer "
+        "vértice del grafo G.\n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: N/A\nSigVert(Grafo G, vértice v) -> "
+        "vértice\n\tEfecto: Devuelve el vértice siguiente de v en el grafo "
+        "G.\n\tRequiere: Un grafo G inicializado no vacío y un vértice v "
+        "válido en G.\n\tModifica: N/A\nPrimVertAdy(Grafo G, vértice v) -> "
+        "vértice\n\tEfecto: Devuelve un vértice adyacente a v en el grafo "
+        "G.\n\tRequiere:Un grafo G inicializado no vacío y un vértice v válido "
+        "en G.\n\tModifica: N/A \nSigVertAdy(Grafo G, vértice v1, vértice v2) "
+        "-> vértice\n\tEfecto: Devuelve un vértice adyacente a v1 pero que sea "
+        "siguiente de v2 en el grafo G.\n\tRequiere: Un grafo G inicializado "
+        "no vacío, un vértice v1 válido en G y un vértice v2 válido en G y "
+        "adyacente a v2.\n\tModifica: N/A\nNumVertices(Grafo G) -> "
+        "entero\n\tEfecto: Devuelve un entero que representa el número de "
+        "vértices del grafo G.\n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: N/A\n\n\tALGORITMOS\n\nNumAristas(Grafo G) "
+        "-> entero\n\tEfecto: Cuenta las aristas del grafo G. Devuelve como "
+        "entero el número de ellas.\n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: N/A\nEsConexoProfPrim(Grafo G) -> "
+        "bool\n\tEfecto: Averigua si el grafo G es conexo haciendo un "
+        "recorrido en profundidad primero. Devuelve verdadero si lo es, falso "
+        "en caso contrario.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "N/A\nEsConexoAnchoPrim(Grafo G) -> bool\n\tEfecto: Averigua si el "
+        "grafo G es conexo haciendo un recorrido en ancho primero. Devuelve "
+        "verdadero si lo es, falso en caso contrario.\n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: N/A\nDijkstra(Grafo G, vértice v1) -> "
+        "Lista\n\tEfecto: Encuentra el camino más corto del vértice v1 a todos "
+        "los demás. Devuelve dicho camino en forma de lista.\n\tRequiere: Un "
+        "grafo G inicializado y no vacío y un vértice v1 válido en "
+        "G.\n\tModifica: N/A\nFloyd(Grafo G) -> Lista\n\tEfecto: Encuentra el "
+        "camino más corto entre todo par de vértices. Devuelve dicho camino en "
+        "forma de lista.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "N/A\nPrim(Grafo G) -> Lista\n\tEfecto: Encuentra el  árbol de mínimo "
+        "costo usando prim. Devuelve dicho árbol en forma de "
+        "lista.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "N/A\nKruskal(Grafo G) -> Lista\n\tEfecto: Encuentra el  árbol de "
+        "mínimo costo usando kruskal. Devuelve dicho árbol en forma de "
+        "lista.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "N/A\nHamiltonBEP(Grafo G) -> Lista\n\tEfecto: Encuentra el circuito "
+        "de Hamilton de menor costo usando búsqueda exhaustiva pura. Devuelve "
+        "dicho circuito en forma de lista.\n\tRequiere: Un grafo G "
+        "inicializado.\n\tModifica: N/A";
     std::cout << reglas;
     std::cin.get();
     system("clear");
 }
 
-void Interfaz::probarAlg(Arbol *&arbol) {
-    Algoritmos algs;
+void Interfaz::probarAlg(Grafo *&grafo) {
+    Algoritmos alg;
     int opcion = -1;
-    char etiqueta1 = ' ';
-    int enteroAux = 0;
+    int etiqueta1;
+    int etiqueta2;
+    double realAux;
     while (opcion != 0) {
-        this->mostrarAlgoritmosArbol();
+        this->mostrarAlgoritmos();
         opcion = this->getOpcion();
-        Arbol::Node nodoActual;
+        Grafo::Vert vertActual;
         switch (opcion) {
         case 1:
-            std::cout << "*Recuerda que el nodo debe estar en el arbol*\n¿De "
-                         "cúal nodo quieres saber su hermano izquierdo?: ";
-            std::cin >> etiqueta1;
-            nodoActual = algs.HermanoIzq(arbol, arbol->getNodo(etiqueta1));
-            std::cout << "El hermano izquierdo del nodo " << etiqueta1
-                      << " es: ";
-            if (nodoActual != arbol->NodoNulo) {
-                std::cout << arbol->Etiqueta(nodoActual);
-            } else {
-                std::cout << "nodo nulo";
-            }
+            std::cout << "Numero de aristas: " << alg.NumAristas(grafo);
             break;
 
         case 2:
-            if (algs.EtiqRepetidas(arbol)) {
-                std::cout << "El arbol tiene etiquetas repetidas" << std::endl;
+            if (alg.EsConexoProfPrim(grafo)) {
+                std::cout << "SI es conexo";
             } else {
-                std::cout << "El arbol NO tiene etiquetas repetidas"
-                          << std::endl;
+                std::cout << "NO es conexo";
             }
             break;
 
         case 3:
-            std::cout << "*Recuerda que el nodo debe estar en el arbol*\n¿De "
-                         "cúal nodo quieres saber su altura?: ";
-            std::cin >> etiqueta1;
-            std::cout << "La altura del nodo " << etiqueta1 << " es: "
-                      << algs.AlturaNodoPreOrden(
-                             arbol, arbol->getNodo(etiqueta1));
+            if (alg.EsConexoAnchoPrim(grafo)) {
+                std::cout << "SI es conexo";
+            } else {
+                std::cout << "NO es conexo";
+            }
             break;
 
         case 4:
-            std::cout << "*Recuerda que el nodo debe estar en el arbol*\n¿De "
-                         "cúal nodo quieres saber su profundidad?: ";
-            std::cin >> etiqueta1;
-            std::cout << "La profundidad del nodo " << etiqueta1 << " es: "
-                      << algs.ProfundidadNodo(arbol, arbol->getNodo(etiqueta1));
+
             break;
 
         case 5:
-            std::cout << "La cantidad de niveles del arbol por PREORDEN es: "
-                      << algs.CantNivelesPreOrden(arbol);
+
             break;
 
         case 6:
-            std::cout << "La cantidad de niveles del arbol por PORNIVELES es: "
-                      << algs.CantNivelesPorNiveles(arbol);
+
             break;
 
         case 7:
-            std::cout
-                << "Digita el nivel del arbol que deseas que sea listado: ";
-            std::cin >> enteroAux;
-            algs.ListarIesimoNivel(arbol, enteroAux);
+
             break;
 
         case 8:
-            algs.ListarPreOrden(arbol);
-            break;
 
-        case 9:
-            algs.ListarPorNiveles(arbol);
-            break;
-
-        case 10:
-            std::cout << "Digite la etiqueta que quiere buscar: ";
-            std::cin >> etiqueta1;
-            std::cout
-                << "El nodo asociado es (direccion de memoria si su Estructura "
-                   "esta en memoria dinamica o un entero en caso contrario)"
-                << algs.BuscarEtiq(arbol, etiqueta1);
-            break;
-
-        case 11:
-            std::cout << "*Recuerda que el nodo debe estar en el arbol*\n¿Cual "
-                         "nodo quieres tomar como raiz para iniciar el borrado "
-                         "del subarbol?: ";
-            std::cin >> etiqueta1;
-            algs.BorrarSubArbol(arbol, arbol->getNodo(etiqueta1));
-            std::cout << "SUBARBOL BORRADO";
-            break;
-
-        case 12:
-            std::cout << "*Recuerda que el nodo debe estar en el arbol*\n¿De "
-                         "cual nodo quieres listar sus hijos?: ";
-            std::cin >> etiqueta1;
-            algs.ListarHijos(arbol, arbol->getNodo(etiqueta1));
             break;
         }
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

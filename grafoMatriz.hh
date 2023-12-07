@@ -2,14 +2,10 @@
 
 #include <iostream>
 
-struct Vertice {
-    int etiqueta;
-};
-
 class Grafo {
 private:
-    Vertice vertices[20];
-    int aristas[20][20];
+    int vertices[20];
+    double aristas[20][20];
     const int tamMax = 20;
     int ultLleno;
 
@@ -23,23 +19,22 @@ public:
     ~Grafo();
     void Vaciar();
     bool Vacio();
-    Vertice AgregarVert(int);
+    int AgregarVert(int);
     void BorrarVert(int);
     void ModifEtiq(int, int);
     int Etiq(int);
-    void AgregarArist(int, int, int);
+    void AgregarArist(int, int, double);
     void BorrarArist(int, int);
-    void ModifPeso(int, int, int);
+    void ModifPeso(int, int, double);
     int Peso(int, int);
-    Vertice PrimVert();
-    Vertice SigVert(int);
-    Vertice PrimVertAdy(int);
-    Vertice SigVertAdy(int, int);
+    int PrimVert();
+    int SigVert(int);
+    int PrimVertAdy(int);
+    int SigVertAdy(int, int);
     int NumVertices();
 
-    int getVert(int e);
-
-    void GrafoPrueba();
+    // aux
+    int EtiqAVert(int e);
     void Imprimir();
 
 public:
