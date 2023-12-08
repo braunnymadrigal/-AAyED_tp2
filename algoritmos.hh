@@ -13,15 +13,15 @@
 #include <utility>
 #include <vector>
 
-//#include "grafoMatriz.hh"
-#include "grafoLista.hh"
+#include "grafoMatriz.hh"
+//#include "grafoLista.hh"
 
 class Algoritmos {
 public:
 	double MenorCosto;
 	double CostoAct;
-	std::vector<Grafo::Vert> SolMejor;
-	std::vector<Grafo::Vert> SolAct;
+	Grafo::Vert SolMejor[1000];
+	Grafo::Vert SolAct[1000];
 	std::map<Grafo::Vert, bool> Dicc;
 
 public:

@@ -1,0 +1,193 @@
+#GrafoLista S
+
+InConexo
+	ConexoProf: 3066      
+	ConexoAncho: 1423      
+	Dijkstra: 732790    
+	Floyd: 372586    
+	Prim: 209958    
+	Kruskal: 60334     
+	HamiltonBEP: 138452    
+
+
+SemiConexo
+	ConexoProf: 8577      
+	ConexoAncho: 41178     
+	Dijkstra: 451205    
+	Floyd: 304408    
+	Prim: 151547    
+	Kruskal: 204478    
+	HamiltonBEP: 175292    
+
+
+FullConexo
+	ConexoProf: 12083     
+	ConexoAncho: 42701     
+	Dijkstra: 439042    
+	Floyd: 277306    
+	Prim: 255003    
+	Kruskal: 278528    
+	HamiltonBEP: 176745    
+
+
+#GrafoLista M
+
+InConexo
+	ConexoProf: 3146      
+	ConexoAncho: 1452      
+	Dijkstra: 20009082  
+	Floyd: 2429067   
+	Prim: 186965    
+	Kruskal: 56807     
+	HamiltonBEP: 150947    
+
+
+SemiConexo
+	ConexoProf: 142961    
+	ConexoAncho: 117613    
+	Dijkstra: 21478719  
+	Floyd: 2437352   
+	Prim: 118225    
+	Kruskal: 3809927   
+	HamiltonBEP: 314386    
+
+
+FullConexo
+	ConexoProf: 309927    
+	ConexoAncho: 298276    
+	Dijkstra: 21830505  
+	Floyd: 3205641   
+	Prim: 82527     
+	Kruskal: 23716012  
+	HamiltonBEP: 919274 
+	
+
+#GrafoLista L
+
+InConexo
+	ConexoProf: 3346      
+	ConexoAncho: 1654      
+	Dijkstra: 2531327340
+	Floyd: 52283611  
+	Prim: 358450    
+	Kruskal: 71365     
+	HamiltonBEP: 129796    
+
+
+SemiConexo
+	ConexoProf: 2856398   
+	ConexoAncho: 3440225   
+	Dijkstra: 2905985841
+	Floyd: 70539558  
+	Prim: 365043    
+	Kruskal: 625307407 
+	HamiltonBEP: 3714706   
+
+
+FullConexo
+	ConexoProf: 13223622  
+	ConexoAncho: 13656934  
+	Dijkstra: 3304875746
+	Floyd: 123759427 
+	Prim: 446276    
+	Kruskal: 5694872206
+	HamiltonBEP: 14721884  
+   
+   
+
+
+#GrafoMatriz S
+
+InConexo
+	ConexoProf: 2735      
+	ConexoAncho: 1443      
+	Dijkstra: 701962    
+	Floyd: 544777    
+	Prim: 252890    
+	Kruskal: 47150     
+	HamiltonBEP: 184040    
+
+
+SemiConexo
+	ConexoProf: 8346      
+	ConexoAncho: 6853      
+	Dijkstra: 500139    
+	Floyd: 478368    
+	Prim: 208996    
+	Kruskal: 236779    
+	HamiltonBEP: 346036    
+
+
+FullConexo
+	ConexoProf: 11371     
+	ConexoAncho: 9869      
+	Dijkstra: 432841    
+	Floyd: 332210    
+	Prim: 227351    
+	Kruskal: 234815    
+	HamiltonBEP: 254192    
+
+
+#GrafoMatriz M
+
+InConexo
+	ConexoProf: 2986      
+	ConexoAncho: 1503      
+	Dijkstra: 9867941   
+	Floyd: 2168684   
+	Prim: 223223    
+	Kruskal: 155665    
+	HamiltonBEP: 241818    
+
+
+SemiConexo
+	ConexoProf: 151948    
+	ConexoAncho: 142160    
+	Dijkstra: 11035543  
+	Floyd: 2238366   
+	Prim: 162038    
+	Kruskal: 3361437   
+	HamiltonBEP: 330808    
+
+
+FullConexo
+	ConexoProf: 231730    
+	ConexoAncho: 311450    
+	Dijkstra: 9833405   
+	Floyd: 2721082   
+	Prim: 132602    
+	Kruskal: 21524033  
+	HamiltonBEP: 658639    
+
+
+#GrafoMatriz L
+
+InConexo
+	ConexoProf: 3416      
+	ConexoAncho: 1683      
+	Dijkstra: 549424478 
+	Floyd: 43199014  
+	Prim: 482074    
+	Kruskal: 187766    
+	HamiltonBEP: 193407    
+
+
+SemiConexo
+	ConexoProf: 1546604   
+	ConexoAncho: 1481631   
+	Dijkstra: 563039376 
+	Floyd: 55755856  
+	Prim: 396643    
+	Kruskal: 597323286 
+	HamiltonBEP: 2318132   
+
+
+FullConexo
+	ConexoProf: 4330816   
+	ConexoAncho: 4134514   
+	Dijkstra: 583399822 
+	Floyd: 89630799  
+	Prim: 386123    
+	Kruskal: 5064828266
+	HamiltonBEP: 5056764  
+	

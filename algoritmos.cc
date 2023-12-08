@@ -453,40 +453,44 @@ void Algoritmos::Kruskal(Grafo *G) {
 
 
 void Algoritmos::HamiltonBEP(Grafo *G) {
+	for (int i = 0; i < std::size(SolMejor); ++i) {
+		SolAct[i] = G->VertNulo;
+		SolMejor[i] = G->VertNulo;
+	}
+
 	if(!G->Vacio()) {
 		MenorCosto = std::numeric_limits<double>::infinity();
 		CostoAct = 0;
-		SolAct.insert(SolAct.begin(), G->PrimVert());
+		SolAct[0] = G->PrimVert();
 		Dicc[G->PrimVert()] = true;
 		HamiltonBEPR(G, 2);
 	}
+	
 	std::cout << "Menor Costo: " << MenorCosto << std::endl;
-	for(int i = 0; i < SolMejor.size(); ++i) {
-		std::cout << G->Etiq(SolMejor[i]) << " ";
-	}
-	std::cout << std::endl;
 }
 
 void Algoritmos::HamiltonBEPR(Grafo *G, int i) {
 	Grafo::Vert va = G->PrimVertAdy(SolAct[i-2]);
 	while (va != G->VertNulo) {
 		if (Dicc.find(va) == Dicc.end()) {
-			int posicionDeseada = i-1;
-			SolAct.insert(SolAct.begin() + posicionDeseada, va);
+			SolAct[i-1] = va;
 			Dicc[va] = true;
 			CostoAct += G->Peso(SolAct[i-2], va);
+			
 			if (i == G->NumVertices()) {
 				if ( G->ExisteArista(va,SolAct[0]) ) {
 					if (CostoAct + G->Peso(va,SolAct[0]) < MenorCosto) {
 						MenorCosto = CostoAct + G->Peso(va,SolAct[0]);
-						SolMejor = SolAct;
+						//SolMejor = SolAct;
+						std::copy(std::begin(SolAct), std::end(SolAct), std::begin(SolMejor));
 					}
 				}
 			}
 			else {
 				HamiltonBEPR(G, i+1);
 			}
-			Dicc[va] = false;
+			//Dicc[va] = false;
+			Dicc.erase(va);
 			CostoAct -= G->Peso(SolAct[i-2],va);
 		}
 		va = G->SigVertAdy(SolAct[i-2],va);
