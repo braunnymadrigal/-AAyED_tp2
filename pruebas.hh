@@ -1,18 +1,11 @@
 #include "algoritmos.hh"
-#include <chrono>
-#include <ctime>
-#include <iomanip>
-#include <random>
 
 class Pruebas {
 public:
     void Ejecutar();
-    void
-    CrearGrafoInConexo(Grafo *&G, std::vector<Grafo::Vert> *&vecVerts, int n);
-    void
-    CrearGrafoFullConexo(Grafo *&G, std::vector<Grafo::Vert> *&vecVerts, int n);
-    void
-    CrearGrafoSemiConexo(Grafo *&G, std::vector<Grafo::Vert> *&vecVerts, int n);
+    void CrearGrafoInConexo(Grafo *&G, std::vector<Grafo::Vert> *&vecVerts, int n);
+    void CrearGrafoFullConexo(Grafo *&G, std::vector<Grafo::Vert> *&vecVerts, int n);
+    void CrearGrafoSemiConexo(Grafo *&G, std::vector<Grafo::Vert> *&vecVerts, int n);
     void TestEsConexoProfPrim(Grafo *G);
     void TestEsConexoAnchoPrim(Grafo *G);
     void TestDijkstra(Grafo *G, std::vector<Grafo::Vert> *vecVerts);

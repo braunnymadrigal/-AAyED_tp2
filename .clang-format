@@ -1,8 +1,0 @@
----
-Language: Cpp
-Standard: C++11
-IndentWidth: 4
-AccessModifierOffset: -4
-UseTab: Never
-TabWidth: 4
-AlignAfterOpenBracket: AlwaysBreak

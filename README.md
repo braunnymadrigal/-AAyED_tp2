@@ -15,7 +15,7 @@ Estudiantes: Keylor Palacios C25770 / Braunny Madrigal C24436
 ## ¿Cómo se usa?
 1. Ejecuta el programa.
 2. Si se decide usar el objeto interfaz. El programa va a consistir de un menú principal que le permite manipular el grafo a través de sus operadores básicos y algoritmos. La propia interfaz le indica cómo moverse por los menús.
-3. Si se decide usar el objeto pruebas. El programa va a consistir de una simple salida en consola que le detalla el tiempo de ejecución, de la estructura de datos escogida anteriormente y de un tamaño en particular, en 7 algoritmos y 3 tipos de grafo. En el archivo pruebas.cc, usted puede escoger de que tamaño quiere su grafo, basta con cambiar el valor de la variable "int tamano" por el tamaño que desee.
+3. Si se decide usar el objeto pruebas. El programa va a consistir de una simple salida en consola que le detalla el tiempo de ejecución, de la estructura de datos escogida anteriormente y de un tamaño en particular, en 7 algoritmos y 3 tipos de grafo. En el archivo pruebas.cc, usted puede escoger de que tamaño quiere su grafo, basta con cambiar el valor de la variable "int tamano" por el tamaño que desee. “freopen("/dev/tty", "w", stdout);” para linux y “freopen("CON", "w", stdout);” para windows.
 
 ## ¿Qué funcionalidad implementa?
 1. Se implementa el modelo Grafo NO dirigido, con pesos, sin aristas paralelas y sin lazos por las estructuras de datos “Matriz de Adyacencia” y “Lista de Adyacencia”.

@@ -4,9 +4,9 @@
 
 class Grafo {
 private:
-    int vertices[20];
-    double aristas[20][20];
-    const int tamMax = 20;
+    int vertices[1000];
+    double aristas[1000][1000];
+    const int tamMax = 1000;
     int ultLleno;
 
 private:
@@ -34,7 +34,7 @@ public:
     int NumVertices();
 
     // aux
-	bool ExisteArista(int, int);
+    bool ExisteArista(int, int);
     int EtiqAVert(int e);
     void Imprimir();
 

@@ -180,13 +180,13 @@ void Grafo::ModifPesoPriv(Vertice *v1, Vertice *v2, double p) {
     iterador->peso = p;
 }
 
-bool Grafo::ExisteArista(Vertice v1, Verticev2) {
+bool Grafo::ExisteArista(Vertice *v1, Vertice *v2) {
     bool existe = false;
     SubLista *iterador = v1->sublista;
     while (iterador != nullptr && iterador->vertice != v2) {
         iterador = iterador->siguiente;
     }
-    if(iterador != nullptr) {
+    if (iterador != nullptr) {
         existe = true;
     }
     return existe;

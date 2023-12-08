@@ -131,8 +131,7 @@ void Interfaz::probarOps(Grafo *&grafo) {
             std::cout << "Elige el peso de la arista: ";
             std::cin >> realAux;
             grafo->AgregarArist(
-                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2),
-                realAux);
+                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2), realAux);
             std::cout << "Arista agregada.";
 
             break;
@@ -160,8 +159,7 @@ void Interfaz::probarOps(Grafo *&grafo) {
             std::cout << "Elige el nuevo peso de la arista: ";
             std::cin >> realAux;
             grafo->ModifPeso(
-                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2),
-                realAux);
+                grafo->EtiqAVert(etiqueta1), grafo->EtiqAVert(etiqueta2), realAux);
             std::cout << "Peso de arista modificado";
 
             break;
@@ -382,22 +380,22 @@ void Interfaz::mostrarManual() {
         "N/A\nEsConexoAnchoPrim(Grafo G) -> bool\n\tEfecto: Averigua si el "
         "grafo G es conexo haciendo un recorrido en ancho primero. Devuelve "
         "verdadero si lo es, falso en caso contrario.\n\tRequiere: Un grafo G "
-        "inicializado.\n\tModifica: N/A\nDijkstra(Grafo G, vértice v1) -> "
-        "Lista\n\tEfecto: Encuentra el camino más corto del vértice v1 a todos "
-        "los demás. Devuelve dicho camino en forma de lista.\n\tRequiere: Un "
+        "inicializado.\n\tModifica: N/A\nDijkstra(Grafo G, vértice v1)"
+        "\n\tEfecto: Encuentra el camino más corto del vértice v1 a todos "
+        "los demás.\n\tRequiere: Un "
         "grafo G inicializado y no vacío y un vértice v1 válido en "
-        "G.\n\tModifica: N/A\nFloyd(Grafo G) -> Lista\n\tEfecto: Encuentra el "
-        "camino más corto entre todo par de vértices. Devuelve dicho camino en "
-        "forma de lista.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "G.\n\tModifica: N/A\nFloyd(Grafo G)\n\tEfecto: Encuentra el "
+        "camino más corto entre todo par de vértices."
+        "\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
         "N/A\nPrim(Grafo G) -> Lista\n\tEfecto: Encuentra el  árbol de mínimo "
-        "costo usando prim. Devuelve dicho árbol en forma de "
-        "lista.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
-        "N/A\nKruskal(Grafo G) -> Lista\n\tEfecto: Encuentra el  árbol de "
-        "mínimo costo usando kruskal. Devuelve dicho árbol en forma de "
-        "lista.\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
-        "N/A\nHamiltonBEP(Grafo G) -> Lista\n\tEfecto: Encuentra el circuito "
-        "de Hamilton de menor costo usando búsqueda exhaustiva pura. Devuelve "
-        "dicho circuito en forma de lista.\n\tRequiere: Un grafo G "
+        "costo usando prim."
+        "\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "N/A\nKruskal(Grafo G)\n\tEfecto: Encuentra el  árbol de "
+        "mínimo costo usando kruskal."
+        "\n\tRequiere: Un grafo G inicializado.\n\tModifica: "
+        "N/A\nHamiltonBEP(Grafo G)\n\tEfecto: Encuentra el circuito "
+        "de Hamilton de menor costo usando búsqueda exhaustiva pura."
+        "\n\tRequiere: Un grafo G "
         "inicializado.\n\tModifica: N/A";
     std::cout << reglas;
     std::cin.get();
@@ -409,11 +407,12 @@ void Interfaz::probarAlg(Grafo *&grafo) {
     int opcion = -1;
     int etiqueta1;
     double realAux;
-	std::vector<Grafo::Vert> copia;
+    std::vector<Grafo::Vert> copia;
     while (opcion != 0) {
         this->mostrarAlgoritmos();
         opcion = this->getOpcion();
         Grafo::Vert vertActual;
+
         switch (opcion) {
         case 1:
             std::cout << "Numero de aristas: " << alg.NumAristas(grafo);
@@ -435,8 +434,8 @@ void Interfaz::probarAlg(Grafo *&grafo) {
             }
             break;
         case 4:
-		
-			std::cout << "¿Cual sera tu vertice de salida?: ";
+
+            std::cout << "¿Cual sera tu vertice de salida?: ";
             std::cin >> etiqueta1;
 
             vertActual = grafo->EtiqAVert(etiqueta1);
@@ -445,24 +444,25 @@ void Interfaz::probarAlg(Grafo *&grafo) {
             } else {
                 alg.Dijkstra(grafo, vertActual);
             }
-			
+
             break;
 
         case 5:
-			alg.Floyd(grafo);
-			
+            alg.Floyd(grafo);
+
             break;
 
         case 6:
-			alg.Prim(grafo);	
-				
+            alg.Prim(grafo);
+
             break;
 
         case 7:
+            alg.Kruskal(grafo);
             break;
 
         case 8:
-
+            alg.HamiltonBEP(grafo);
             break;
         }
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
