@@ -408,8 +408,8 @@ void Interfaz::probarAlg(Grafo *&grafo) {
     Algoritmos alg;
     int opcion = -1;
     int etiqueta1;
-    int etiqueta2;
     double realAux;
+	std::vector<Grafo::Vert> copia;
     while (opcion != 0) {
         this->mostrarAlgoritmos();
         opcion = this->getOpcion();
@@ -434,21 +434,31 @@ void Interfaz::probarAlg(Grafo *&grafo) {
                 std::cout << "NO es conexo";
             }
             break;
-
         case 4:
+		
+			std::cout << "¿Cual sera tu vertice de salida?: ";
+            std::cin >> etiqueta1;
 
+            vertActual = grafo->EtiqAVert(etiqueta1);
+            if (vertActual == grafo->VertNulo) {
+                std::cout << "Vertice Nulo";
+            } else {
+                alg.Dijkstra(grafo, vertActual);
+            }
+			
             break;
 
         case 5:
-
+			alg.Floyd(grafo);
+			
             break;
 
         case 6:
-
+			alg.Prim(grafo);	
+				
             break;
 
         case 7:
-
             break;
 
         case 8:

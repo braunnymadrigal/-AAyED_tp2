@@ -34,6 +34,7 @@ public:
     int NumVertices();
 
     // aux
+	bool ExisteArista(int, int);
     int EtiqAVert(int e);
     void Imprimir();
 

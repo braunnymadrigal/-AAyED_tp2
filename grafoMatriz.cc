@@ -70,7 +70,14 @@ int Grafo::Peso(int v1, int v2) { return this->aristas[v2][v1]; }
 
 int Grafo::PrimVert() { return 0; }
 
-int Grafo::SigVert(int v) { return v + 1; }
+int Grafo::SigVert(int v) { 
+	int sigVert = v+1;
+	if(sigVert > ultLleno) {
+		sigVert = -1;
+	}
+
+	return sigVert;
+}
 
 int Grafo::PrimVertAdy(int v) {
     int verticeAdy = -1;
@@ -110,10 +117,16 @@ int Grafo::EtiqAVert(int e) {
         if (vertices[i] == e) {
             seguir = false;
         }
-        ++i;
+		else{
+			++i;
+		}
     }
 
     return i;
+}
+
+bool Grafo::ExisteArista(int v1, int v2) {
+	return this->aristas[v1][v2] != -1;
 }
 
 // FuncionesAuxiliares

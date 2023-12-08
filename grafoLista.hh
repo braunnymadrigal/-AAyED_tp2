@@ -40,6 +40,7 @@ public:
     Vertice *PrimVertAdy(Vertice *v);
     Vertice *SigVertAdy(Vertice *v1, Vertice *v2);
     int NumVertices();
+	bool ExisteArista(Vertice *v1, Vertice *v2)
     // aux
     Vertice *EtiqAVert(int e);
     void Imprimir();
